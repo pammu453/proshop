@@ -4,7 +4,7 @@ import { Row, Col, ListGroup, Image, Form, Button, Card, ListGroupItem } from 'r
 import { FaTrash } from 'react-icons/fa'
 import Error from "../components/Error"
 
-import {addToCart} from '../slices/cartSlice'
+import { addToCart, removeFromCart } from '../slices/cartSlice'
 
 const CartScreen = () => {
     const navigate = useNavigate()
@@ -12,11 +12,19 @@ const CartScreen = () => {
 
 
     const cart = useSelector(state => state.cart)
-    const { cartItems ,itemPrice} = cart
+    const { cartItems, itemPrice } = cart
 
-    const addToCartHandler=async(item,qty)=>{
-        dispatch(addToCart({...item,qty}))
+    const addToCartHandler = async (item, qty) => {
+        dispatch(addToCart({ ...item, qty }))
     }
+
+    const remobeFromCartHandler = async (id) => {
+        dispatch(removeFromCart(id))
+    }
+    const checkOutHandler = async (id) => {
+        navigate("/login?redirect=/shipping")
+    }
+
     return (
         <Row>
             <Col md={8}>
@@ -48,7 +56,7 @@ const CartScreen = () => {
                                                 <Form.Control
                                                     as="select"
                                                     value={item.qty}
-                                                    onChange={(e) => {addToCartHandler(item,Number(e.target.value)) }}
+                                                    onChange={(e) => { addToCartHandler(item, Number(e.target.value)) }}
                                                 >
                                                     {[...Array(item.countInStock).keys()].map((x) => (
                                                         <option key={x + 1} value={x + 1}>
@@ -58,7 +66,7 @@ const CartScreen = () => {
                                                 </Form.Control>
                                             </Col>
                                             <Col md={2} className="mt-2">
-                                                <Button type="button" variant="light">
+                                                <Button type="button" variant="light" onClick={() => remobeFromCartHandler(item._id)}>
                                                     <FaTrash />
                                                 </Button>
                                             </Col>
@@ -78,7 +86,7 @@ const CartScreen = () => {
                             ${itemPrice}
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <Button type="button" style={{background:"black"}}  className="btn-block" disabled={cartItems.length===0}>
+                            <Button onClick={checkOutHandler} type="button" style={{ background: "black" }} className="btn-block" disabled={cartItems.length === 0}>
                                 Proceed to Checkout
                             </Button>
                         </ListGroup.Item>
