@@ -12,6 +12,7 @@ import App from './App';
 import "bootstrap/dist/css/bootstrap.min.css"
 import HomeScreen from './screen/HomeScreen';
 import ProductScreen from './screen/ProductScreen';
+import CartScreen from './screen/CartScreen'
 
 
 //redux set up
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
     <Route path='/' element={<App />}>
       <Route index={true} path='/' element={<HomeScreen />} />
       <Route path='/products/:id' element={<ProductScreen />} />
+      <Route path='/cart' element={<CartScreen/>} />
     </Route>
   )
 )
