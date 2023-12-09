@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, ListGroup, Image, Form, Button, Card, ListGroupItem } from 'react-bootstrap'
+import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap'
 import { FaTrash } from 'react-icons/fa'
 import Error from "../components/Error"
 
@@ -45,7 +45,7 @@ const CartScreen = () => {
                                                 <Image src={item.image} alt={item.name} fluid rounded />
                                             </Col>
                                             <Col md={3}>
-                                                <Link to={`/product/${item._id}`} style={{ color: "black" }}>
+                                                <Link to={`/products/${item._id}`} style={{ color: "black" }}>
                                                     {item.name}
                                                 </Link>
                                             </Col>
