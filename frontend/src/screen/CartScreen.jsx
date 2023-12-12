@@ -21,7 +21,7 @@ const CartScreen = () => {
     const remobeFromCartHandler = async (id) => {
         dispatch(removeFromCart(id))
     }
-    const checkOutHandler = async (id) => {
+    const checkOutHandler = async () => {
         navigate("/login?redirect=/shipping")
     }
 

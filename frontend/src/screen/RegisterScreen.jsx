@@ -39,7 +39,7 @@ const RegisterScreen = () => {
         } else {
             try {
                 const res = await register({ name, email, password }).unwrap()
-                dispatch(setCredentials({ ...res}))
+                dispatch(setCredentials({ ...res }))
                 navigate(redirect)
             } catch (error) {
                 toast.error(error?.data?.message || error.message)
@@ -49,7 +49,7 @@ const RegisterScreen = () => {
 
     return (
         <FormConatiner>
-            <h1>Sign Up</h1>
+            <h2>Sign Up</h2>
             <Form onSubmit={submitteHandler}>
                 <Form.Group controlId="name" className="my-3">
                     <Form.Label>Name</Form.Label>
@@ -59,6 +59,7 @@ const RegisterScreen = () => {
                         value={name}
                         required
                         onChange={(e) => setName(e.target.value)}
+                        autoComplete="username"
                     />
                 </Form.Group>
                 <Form.Group controlId="email" className="my-3">
@@ -69,6 +70,7 @@ const RegisterScreen = () => {
                         value={email}
                         required
                         onChange={(e) => setEmail(e.target.value)}
+                        autoComplete="email"
                     />
                 </Form.Group>
                 <Form.Group controlId="password" className="my-3">
@@ -79,6 +81,7 @@ const RegisterScreen = () => {
                         value={password}
                         required
                         onChange={(e) => setPassword(e.target.value)}
+                        autoComplete="password"
                     />
                 </Form.Group>
                 <Form.Group controlId="confirmPassword" className="my-3">
@@ -89,15 +92,16 @@ const RegisterScreen = () => {
                         value={confirmPassword}
                         required
                         onChange={(e) => setConfirmPassword(e.target.value)}
+                        autoComplete="conformPassword"
                     />
                 </Form.Group>
-                <Button type="submit" style={{ background: "black", border: "none" }} className="mt-2" disabled={isLoading}>
-                    Sign Up
-                </Button>
 
                 {
                     isLoading && <Loader />
                 }
+                <Button type="submit" style={{ background: "black", border: "none" }} className="mt-2" disabled={isLoading}>
+                    Sign Up
+                </Button>
             </Form>
             <Row className="py-3">
                 <Col>

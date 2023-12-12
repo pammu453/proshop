@@ -27,13 +27,13 @@ const LoginScreen = () => {
         if (userInfo) {
             navigate(redirect)
         }
-    }, [userInfo, redirect,navigate])
+    }, [userInfo, redirect, navigate])
 
-    const submitteHandler = async(e) => {
+    const submitteHandler = async (e) => {
         e.preventDefault()
         try {
-            const res=await login({email,password}).unwrap()
-            dispatch(setCredentials({...res,}))
+            const res = await login({ email, password }).unwrap()
+            dispatch(setCredentials({ ...res }))
             navigate(redirect)
         } catch (error) {
             toast.error(error?.data?.message || error.message)
@@ -42,7 +42,7 @@ const LoginScreen = () => {
 
     return (
         <FormConatiner>
-            <h1>Sign In</h1>
+            <h2>Sign In</h2>
             <Form onSubmit={submitteHandler}>
                 <Form.Group controlId="email" className="my-3">
                     <Form.Label>Email Address</Form.Label>
@@ -52,6 +52,7 @@ const LoginScreen = () => {
                         value={email}
                         required
                         onChange={(e) => setEmail(e.target.value)}
+                        autoComplete="username"
                     />
                 </Form.Group>
                 <Form.Group controlId="password" className="my-3">
@@ -62,19 +63,19 @@ const LoginScreen = () => {
                         value={password}
                         required
                         onChange={(e) => setPassword(e.target.value)}
+                        autoComplete="current-password"
                     />
                 </Form.Group>
+                {
+                    isLoading && <Loader />
+                }
                 <Button type="submit" style={{ background: "black", border: "none" }} className="mt-2" disabled={isLoading}>
                     Sign In
                 </Button>
-
-                {
-                    isLoading && <Loader/>
-                }
             </Form>
             <Row className="py-3">
                 <Col>
-                    New Customer? <Link to={redirect ? `/register?redirect=${redirect}` :'/register'}>Sign Up</Link>
+                    New Customer? <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>Sign Up</Link>
                 </Col>
             </Row>
         </FormConatiner>
