@@ -1,12 +1,29 @@
-import { Navbar, Nav, Container, Badge } from 'react-bootstrap'
+import { Navbar, Nav, Container, Badge, NavDropdown } from 'react-bootstrap'
 import { FaShoppingBag, FaShoppingCart, FaUser } from 'react-icons/fa'
 import { LinkContainer } from 'react-router-bootstrap'
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { useLogoutMutation } from '../slices/usersApiSlice'
+import { logout } from '../slices/authSlice'
 
 const Header = () => {
     const { cartItems } = useSelector(state => state.cart)
-    console.log(cartItems.length)
+    const { userInfo } = useSelector(state => state.auth)
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const [logoutApiCall] = useLogoutMutation()
+    const logoutHandler = async () => {
+        try {
+            await logoutApiCall().unwrap()
+            dispatch(logout())
+            navigate("/")
+        } catch (err) {
+            console.log(err)
+        }
+    }
     return (
         <header>
             <Navbar bg="dark" variant='dark' expand='md' collapseOnSelect>
@@ -15,7 +32,7 @@ const Header = () => {
                         <Navbar.Brand >
                             <span className=''>Pro-Shop</span>
                             <span>
-                                <FaShoppingBag style={{ fontSize: '20px',marginLeft:"1px" }}/>
+                                <FaShoppingBag style={{ fontSize: '20px', marginLeft: "1px" }} />
                             </span>
                         </Navbar.Brand>
                     </LinkContainer>
@@ -26,24 +43,39 @@ const Header = () => {
                                 <Nav.Link >
                                     <div style={{ display: "flex", alignItems: "center" }}>
                                         <FaShoppingCart className='mx-1' />
-                                        <sapn>
+                                        <span>
                                             Cart {cartItems.length > 0 ? (
                                                 <Badge bg='info' className='px-1'>
                                                     {cartItems.length}
                                                 </Badge>
                                             ) : 0}
-                                        </sapn>
+                                        </span>
                                     </div>
                                 </Nav.Link>
                             </LinkContainer>
-                            <LinkContainer to="/login">
-                                <Nav.Link ><FaUser /> Sign In</Nav.Link>
-                            </LinkContainer>
+                            {
+                                userInfo ? (
+                                    <NavDropdown title={userInfo.name} id='username'>
+                                        <LinkContainer to="/profile">
+                                            <NavDropdown.Item>
+                                                Profile
+                                            </NavDropdown.Item>
+                                        </LinkContainer>
+                                        <NavDropdown.Item onClick={logoutHandler}>
+                                            Logout
+                                        </NavDropdown.Item>
+                                    </NavDropdown>
+                                ) : (
+                                    <LinkContainer to="/login">
+                                        <Nav.Link ><FaUser /> Sign In</Nav.Link>
+                                    </LinkContainer>
+                                )
+                            }
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
-            </Navbar>
-        </header>
+            </Navbar >
+        </header >
     )
 }
 
