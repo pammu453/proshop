@@ -55,7 +55,7 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
 
 //@desc Get order by ID
 //@route GET /api/orders/:id
-//@access Private/Admin
+//@access Private
 const getOrderById = asyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id).populate('user', "name email")
     if (order) {
