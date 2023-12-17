@@ -24,7 +24,7 @@ const ProfileScreen = () => {
             setName(userInfo.name)
             setEmail(userInfo.email)
         }
-    }, [userInfo,userInfo.name, userInfo.email])
+    }, [userInfo, userInfo.name, userInfo.email])
 
     const submitteHandler = async (e) => {
         e.preventDefault()
@@ -32,7 +32,7 @@ const ProfileScreen = () => {
             toast.error("Password did't match!")
         } else {
             try {
-                const res = await updateProfile({ _id: userInfo._id, name, email, password }).unwrap()
+                const res = await updateProfile({ name, email, password }).unwrap()
                 dispatch(setCredentials(res))
                 toast.success("Profile updated succefully!")
             } catch (error) {
