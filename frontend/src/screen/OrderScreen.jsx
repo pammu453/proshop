@@ -1,14 +1,74 @@
 import { Link, useParams } from 'react-router-dom'
-import { Row, Col, ListGroup, Image, Form, Button, Card, ListGroupItem } from 'react-bootstrap'
+import { Row, Col, ListGroup, Image, Button, Card } from 'react-bootstrap'
 import Error from '../components/Error'
 import Loader from '../components/Loader'
-import { useGetOrderDetailsQuery } from '../slices/orderApiSlice'
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js'
+import { useGetOrderDetailsQuery, usePayOrderMutation, useGetPayPalClientIdQuery } from '../slices/orderApiSlice'
+import { toast } from 'react-toastify'
+import { useEffect } from 'react'
+
 
 const OrderScreen = () => {
-    const { id } = useParams()
+    const { id: orderId } = useParams()
 
+    const { data: order, refetch, isLoading, error } = useGetOrderDetailsQuery(orderId)
 
-    const { data: order, refetch, isLoading, error } = useGetOrderDetailsQuery(id)
+    const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation()
+    const [{ isPending }, payPalDispatch] = usePayPalScriptReducer()
+    const { data: paypal, isLoading: loadingPayPal, error: errorPayPal } = useGetPayPalClientIdQuery()
+
+    useEffect(() => {
+        if (!errorPayPal && !loadingPayPal && paypal.clientId) {
+            const loadingPayPalScript = async () => {
+                payPalDispatch({
+                    type: "resetOptions",
+                    value: {
+                        "clientId": paypal.clientId,
+                        currency: "INR",
+                    }
+                })
+                payPalDispatch({ type: "setLoadingStatus", value: "pending" })
+            }
+            if (order && !order.isPaid) {
+                if (!window.paypal) {
+                    loadingPayPalScript()
+                }
+            }
+        }
+    }, [order, paypal, payPalDispatch, loadingPayPal, errorPayPal])
+
+    const onApprove = (data, actions) => {
+        return actions.order.capture.then(async function (details) {
+            try {
+                await payOrder({ orderId, details })
+                refetch()
+                toast.success("Payment successfull")
+            } catch (error) {
+                toast.error(error?.data?.message || error.message)
+            }
+        })
+    }
+    const onApproveTest = async () => {
+        await payOrder({ orderId, details: { payer: {} } })
+        refetch()
+        toast.success("Payment successfull")
+    }
+
+    const onError = (error) => {
+        toast.error(error.message)
+    }
+
+    const createOrder = (data, actions) => {
+        return actions.order.create({
+            purchase_units: [{
+                amount: {
+                    value: order.totalPrice
+                },
+            },]
+        }).then((orderId) => {
+            return orderId
+        })
+    }
 
     return (
         <>
@@ -43,7 +103,7 @@ const OrderScreen = () => {
                                                 </Error>
                                             )}
                                         </ListGroup.Item>
-                                        <ListGroupItem>
+                                        <ListGroup.Item>
                                             <h2>Payment Method</h2>
                                             <p>
                                                 <strong>Method: </strong>
@@ -58,8 +118,8 @@ const OrderScreen = () => {
                                                     Not Paid!
                                                 </Error>
                                             )}
-                                        </ListGroupItem>
-                                        <ListGroupItem>
+                                        </ListGroup.Item>
+                                        <ListGroup.Item>
                                             <h2>OrderItems:</h2>
                                             {
                                                 order.orderItems.map((item, index) => (
@@ -81,12 +141,12 @@ const OrderScreen = () => {
                                                     </ListGroup.Item>
                                                 ))
                                             }
-                                        </ListGroupItem>
+                                        </ListGroup.Item>
                                     </ListGroup>
                                 </Col>
                                 <Col md={4}>
                                     <Card>
-                                        <ListGroup variant='flish'>
+                                        <ListGroup variant='flush'>
                                             <ListGroup.Item>
                                                 <h2>Order Summery</h2>
                                             </ListGroup.Item>
@@ -104,14 +164,33 @@ const OrderScreen = () => {
                                                     <Col>${order.taxPrice}</Col>
                                                 </Row>
                                                 <strong>
-                                                <Row>
-                                                    <Col>Total Price</Col>
-                                                    <Col>${order.totalPrice}</Col>
-                                                </Row>
+                                                    <Row>
+                                                        <Col>Total Price</Col>
+                                                        <Col>${order.totalPrice}</Col>
+                                                    </Row>
                                                 </strong>
                                             </ListGroup.Item>
-                                          {/* pay oder placeholder */}
-                                          {/* mask as delivered Placeholder */}
+                                            {
+                                                !order.isPaid && (
+                                                    <ListGroup.Item>
+                                                        {loadingPay && <Loader />}
+                                                        {isPending ? <Loader /> : (
+                                                            <div>
+                                                                {/* <Button onClick={onApproveTest}
+                                                                    style={{ background: "grey", border: "none", marginBottom: "13px" }}
+                                                                >Test Pay Order
+                                                                </Button> */}
+                                                                <PayPalButtons
+                                                                    createOrder={createOrder}
+                                                                    onApprove={onApprove}
+                                                                    onError={onError}
+                                                                />
+                                                            </div>
+                                                        )}
+                                                    </ListGroup.Item>
+                                                )
+                                            }
+                                            {/* mask as delivered Placeholder */}
                                         </ListGroup>
                                     </Card>
                                 </Col>
