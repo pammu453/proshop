@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { useNavigate } from 'react-router-dom'
 import { Form, Button, Col } from 'react-bootstrap'
 import CheckOutSteps from '../components/CheckOutSteps'

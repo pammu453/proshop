@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import { Row, Col, ListGroup, Image, Button, Card } from 'react-bootstrap'
+import { Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
 import Error from '../components/Error'
 import Loader from '../components/Loader'
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js'
