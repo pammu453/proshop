@@ -1,6 +1,6 @@
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button, Row, Col } from 'react-bootstrap'
-import { FaTimes, FaTrash, FaPlus, FaEdit } from 'react-icons/fa'
+import { FaTrash, FaPlus, FaEdit } from 'react-icons/fa'
 import Error from '../../components/Error'
 import Loader from '../../components/Loader'
 import { useGetProductsQuery, useCreateProductMutation } from '../../slices/productApiSlice'
