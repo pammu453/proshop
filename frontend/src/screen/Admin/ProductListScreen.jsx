@@ -3,10 +3,24 @@ import { Table, Button, Row, Col } from 'react-bootstrap'
 import { FaTimes, FaTrash, FaPlus, FaEdit } from 'react-icons/fa'
 import Error from '../../components/Error'
 import Loader from '../../components/Loader'
-import { useGetProductsQuery } from '../../slices/productApiSlice'
+import { useGetProductsQuery, useCreateProductMutation } from '../../slices/productApiSlice'
+import { toast } from 'react-toastify'
 
 const ProductListScreen = () => {
-    const { data: products, isLoading, error } = useGetProductsQuery()
+    const { data: products, isLoading, error, refetch } = useGetProductsQuery()
+
+    const [createProduct, { isLoading: loadingCreate }] = useCreateProductMutation()
+
+    const createProductHandler = async () => {
+        if (window.confirm("Are you sure want to create a new product?")) {
+            try {
+                await createProduct()
+                refetch()
+            } catch (error) {
+                toast.error(error?.data?.message || error.error)
+            }
+        }
+    }
 
     const deleteHandler = (id) => {
         console.log(id)
@@ -17,7 +31,7 @@ const ProductListScreen = () => {
                 <Col>
                     <h2>Products</h2>
                     <Col className='text-end'>
-                        <Button className='btn-sm m-3' variant='dark'>
+                        <Button className='btn-sm m-3' variant='dark' onClick={createProductHandler}>
                             <FaPlus /> Add Product
                         </Button>
                     </Col>
@@ -73,6 +87,9 @@ const ProductListScreen = () => {
                                 </tbody>
                             </Table>
                         )
+            }
+            {
+                loadingCreate && <Loader />
             }
         </>
     )
