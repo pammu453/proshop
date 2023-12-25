@@ -4,7 +4,7 @@ import { Form, Button } from 'react-bootstrap'
 import Error from '../../components/Error'
 import Loader from '../../components/Loader'
 import { toast } from 'react-toastify'
-import { useUpdateProductMutation, useGetProductByIdQuery,useUploadProductImageMutation } from "../../slices/productApiSlice"
+import { useUpdateProductMutation, useGetProductByIdQuery, useUploadProductImageMutation } from "../../slices/productApiSlice"
 import FormConatiner from '../../components/FormConatiner'
 
 const ProductEditListScreen = () => {
@@ -22,7 +22,7 @@ const ProductEditListScreen = () => {
 
   const [updateProduct, { isLoading: loadingUpdate }] = useUpdateProductMutation()
 
-  const [uploadImage,{isLoading:loadingUpload}]=useUploadProductImageMutation()
+  const [uploadImage, { isLoading: loadingUpload }] = useUploadProductImageMutation()
 
   const navigate = useNavigate()
 
@@ -60,15 +60,18 @@ const ProductEditListScreen = () => {
 
   }
 
-  const uploadFileHandler=async(e)=>{
-    const formData=new FormData()
-    formData.append('image',e.target.files[0])
+  const uploadFileHandler = async (e) => {
+    const formData = new FormData()
+    formData.append('image', e.target.files[0])
     try {
-      const res=await uploadImage(formData).unwrap()
+      const res = await uploadImage(formData).unwrap()
       toast.success(res.message)
-      console.log("Image Path:", `/backend${res.image}`);
-      setImage(`/backend${res.image}`);
+      // Assuming `res` is the response object you received from the backend
+      const imagePath = res.image.replace(/\\/g, '/');
 
+      // Now `imagePath` should have consistent forward slashes
+      setImage(imagePath);
+      console.log(image)
     } catch (error) {
       console.log(error)
       toast.error(error?.data?.message || error.error)

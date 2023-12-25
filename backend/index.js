@@ -12,7 +12,7 @@ import { notFound, errorHandler } from "./middleware/errorMidleware.js";
 
 //image upload
 import uploadRouter from "./routes/uploadRoutes.js";
-import path from 'path'
+import path, { dirname } from 'path'
 
 const port = process.env.PORT || 5001;
 const app = express();
@@ -41,7 +41,7 @@ app.get("/api/config/paypal", (req, res) => {
 
 app.use('/api/upload', uploadRouter)
 const __dirname = path.resolve()
-app.use("/uploads", express.static(path.join(__dirname, "/uploads")))
+app.use("/uploads", express.static(path.join(__dirname, "uploads")))
 
 app.use(notFound)
 app.use(errorHandler)
