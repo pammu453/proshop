@@ -10,6 +10,10 @@ import userRouter from "./routes/userRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMidleware.js";
 
+//image upload
+import uploadRouter from "./routes/uploadRoutes.js";
+import path from 'path'
+
 const port = process.env.PORT || 5001;
 const app = express();
 
@@ -31,9 +35,13 @@ app.use("/api/products", productRouter)
 app.use("/api/users", userRouter)
 app.use("/api/orders", orderRouter)
 
-app.get("/api/config/paypal",(req,res)=>{
-    res.send({clientId:process.env.PAYPAL_CLIEND_ID})
+app.get("/api/config/paypal", (req, res) => {
+    res.send({ clientId: process.env.PAYPAL_CLIEND_ID })
 })
+
+app.use('/api/upload', uploadRouter)
+const __dirname = path.resolve()
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")))
 
 app.use(notFound)
 app.use(errorHandler)
