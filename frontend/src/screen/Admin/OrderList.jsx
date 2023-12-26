@@ -36,7 +36,7 @@ const OrderList = () => {
                                             {order._id}
                                         </td>
                                         <td>
-                                            {order.user.name}
+                                            {order.user?.name}
                                         </td>
                                         <td>
                                             {(order.createdAt).substring(0, 10)}
