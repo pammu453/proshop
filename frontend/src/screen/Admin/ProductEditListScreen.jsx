@@ -18,11 +18,11 @@ const ProductEditListScreen = () => {
   const [countInStock, setCountInStock] = useState('');
   const [description, setDescription] = useState('');
 
-  const { data: product, isLoading, refetch, error } = useGetProductByIdQuery(productId)
+  const { data: product, isLoading, error } = useGetProductByIdQuery(productId)
 
   const [updateProduct, { isLoading: loadingUpdate }] = useUpdateProductMutation()
 
-  const [uploadImage, { isLoading: loadingUpload }] = useUploadProductImageMutation()
+  const [uploadImage] = useUploadProductImageMutation()
 
   const navigate = useNavigate()
 

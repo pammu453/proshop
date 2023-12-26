@@ -56,7 +56,7 @@ const UsersList = () => {
                                         <td>
                                             {
                                                 user.isAdmin ? (
-                                                    <FaTimes style={{ color: "green" }} />
+                                                    <FaCheck style={{ color: "green" }} />
                                                 ) : (
                                                     <FaTimes style={{ color: "red" }} />
                                                 )
