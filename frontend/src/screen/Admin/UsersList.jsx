@@ -25,7 +25,7 @@ const UsersList = () => {
 
     return (
         <>
-            <h1>Users</h1>
+            <h3>Users</h3>
             {
                 isLoading ? <Loader /> : error ? <Error variant='danger'>
                     {error}
@@ -68,7 +68,7 @@ const UsersList = () => {
                                                     <FaEdit />
                                                 </Button>
                                             </LinkContainer>
-                                            <Button className='btn-sm ' variant='dark' onClick={() => deleteHandler(user._id)} disabled={user.isAdmin}>
+                                            <Button className='btn-sm ' variant='dark' onClick={() => deleteHandler(user._id)}>
                                                 <FaTrash />
                                             </Button>
                                         </td>
