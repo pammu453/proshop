@@ -3,13 +3,14 @@ import { Table, Button, Row, Col } from 'react-bootstrap'
 import { FaTrash, FaPlus, FaEdit } from 'react-icons/fa'
 import Error from '../../components/Error'
 import Loader from '../../components/Loader'
-import { useGetProductsQuery, useCreateProductMutation } from '../../slices/productApiSlice'
+import { useGetProductsQuery, useCreateProductMutation, useDeleteProductMutation } from '../../slices/productApiSlice'
 import { toast } from 'react-toastify'
 
 const ProductListScreen = () => {
     const { data: products, isLoading, error, refetch } = useGetProductsQuery()
 
     const [createProduct, { isLoading: loadingCreate }] = useCreateProductMutation()
+    const [deleteProduct, { isLoading: loadingDelete }] = useDeleteProductMutation()
 
     const createProductHandler = async () => {
         if (window.confirm("Are you sure want to create a new product?")) {
@@ -22,8 +23,16 @@ const ProductListScreen = () => {
         }
     }
 
-    const deleteHandler = (id) => {
-        console.log(id)
+    const deleteHandler = async(id) => {
+        if(window.confirm("Are you sure to delete the product?")){
+            try {
+                await deleteProduct(id)
+                toast.success("Product deleted.")
+                refetch();
+            } catch (error) {
+                toast.error(error?.data?.message || error.error)
+            }
+        }
     }
     return (
         <>
@@ -39,7 +48,7 @@ const ProductListScreen = () => {
             </Row>
             {
                 isLoading ? <Loader /> :
-                    error ? <Error variant='danger'>{error}</Error> :
+                    error ? <Error variant='danger'>{error.message || 'An unexpected error occurred.'}</Error> :            
                         (
                             <Table striped bordered hover responsive className='table-sm' variant="dark">
                                 <thead>
@@ -88,9 +97,8 @@ const ProductListScreen = () => {
                             </Table>
                         )
             }
-            {
-                loadingCreate && <Loader />
-            }
+            {loadingCreate && <Loader />}
+            {loadingDelete && <Loader/>}
         </>
     )
 }
