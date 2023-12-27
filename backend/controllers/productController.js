@@ -17,10 +17,6 @@ const getAllProducts = asyncHandler(async (req, res) => {
         page,
         pages: Math.ceil(count / pageSize)
     })
-
-    if (products) return res.json(products)
-    res.status(404)
-    throw new Error("Products not found")
 })
 
 //@desc Fetch Products by id
