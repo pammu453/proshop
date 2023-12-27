@@ -5,8 +5,19 @@ import asyncHandler from "../middleware/asyncHandler.js";
 //@desc Fetch all Products
 //@route GET /api/products
 //@access Public
-const getAllProducts = asyncHandler(async (_req, res) => {
-    const products = await Product.find({});
+const getAllProducts = asyncHandler(async (req, res) => {
+    const pageSize = 2;
+    const page = Number(req.query.pageNumber) || 1
+    const count = await Product.countDocuments()
+
+    const products = await Product.find({}).limit(pageSize).skip(pageSize * (page - 1))
+
+    res.json({
+        products,
+        page,
+        pages: Math.ceil(count / pageSize)
+    })
+
     if (products) return res.json(products)
     res.status(404)
     throw new Error("Products not found")
