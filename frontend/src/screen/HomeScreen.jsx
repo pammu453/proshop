@@ -9,16 +9,18 @@ import Loader from '../components/Loader'
 import Error from '../components/Error'
 
 import Paginate from '../components/Paginate'
+import ProductCarasol from '../components/ProductCarasol'
 
 const HomeScreen = () => {
 
     const { pageNumber,keyword } = useParams()
 
     const { data, isLoading, error } = useGetProductsQuery({ pageNumber,keyword });
-
+    
     return (
         <>
-        {keyword && <Link to={'/'} className='btn btn-light'>Go back</Link>}
+        {/* {!keyword && } */}
+        {!keyword ? <ProductCarasol/> : <Link to={'/'} className='btn btn-light'>Go back</Link>}
             <h3>Latest Products</h3>
             {isLoading ? (
                 <Loader />
