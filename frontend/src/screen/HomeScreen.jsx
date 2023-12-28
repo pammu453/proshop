@@ -3,7 +3,7 @@ import Product from '../components/Product'
 
 import { useGetProductsQuery } from '../slices/productApiSlice'
 
-import { useParams, Link} from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 
 import Loader from '../components/Loader'
 import Error from '../components/Error'
@@ -13,14 +13,14 @@ import ProductCarasol from '../components/ProductCarasol'
 
 const HomeScreen = () => {
 
-    const { pageNumber,keyword } = useParams()
+    const { pageNumber, keyword } = useParams()
 
-    const { data, isLoading, error } = useGetProductsQuery({ pageNumber,keyword });
-    
+    const { data, isLoading, error } = useGetProductsQuery({ pageNumber, keyword });
+
     return (
         <>
-        {/* {!keyword && } */}
-        {!keyword ? <ProductCarasol/> : <Link to={'/'} className='btn btn-light'>Go back</Link>}
+            {/* {!keyword && } */}
+            {!keyword ? <ProductCarasol /> : <Link to={'/'} className='btn btn-light'>Go back</Link>}
             <h3>Latest Products</h3>
             {isLoading ? (
                 <Loader />
@@ -37,7 +37,7 @@ const HomeScreen = () => {
                             </Col>
                         ))}
                     </Row>
-                    <Paginate page={data.page} pages={data.pages} keyword ={keyword ? keyword :""}/>
+                    <Paginate page={data.page} pages={data.pages} keyword={keyword ? keyword : ""} />
                 </>
             )}
         </>

@@ -1,4 +1,4 @@
-import { ORDERS_URL,PAYPAL_URL } from "../constants";
+import { ORDERS_URL, PAYPAL_URL } from "../constants";
 import { apiSlice } from "./apiSlice";
 
 export const orderApiSlice = apiSlice.injectEndpoints({
@@ -7,7 +7,7 @@ export const orderApiSlice = apiSlice.injectEndpoints({
             query: (data) => ({
                 url: ORDERS_URL,
                 method: "POST",
-                body:{...data},
+                body: { ...data },
                 credentials: 'include',
             }),
         }),
@@ -16,13 +16,13 @@ export const orderApiSlice = apiSlice.injectEndpoints({
                 url: `${ORDERS_URL}/${orderId}`,
                 credentials: 'include'
             }),
-            keepUnusedDataFor:5
+            keepUnusedDataFor: 5
         }),
         payOrder: builder.mutation({
-            query: ({orderId,details}) => ({
+            query: ({ orderId, details }) => ({
                 url: `${ORDERS_URL}/${orderId}/pay`,
                 method: "PUT",
-                body:{...details},
+                body: { ...details },
                 credentials: 'include',
             }),
         }),
@@ -31,21 +31,21 @@ export const orderApiSlice = apiSlice.injectEndpoints({
                 url: PAYPAL_URL,
                 credentials: 'include'
             }),
-            keepUnusedDataFor:5
+            keepUnusedDataFor: 5
         }),
         getMyOrders: builder.query({
             query: () => ({
                 url: `${ORDERS_URL}/myorders`,
                 credentials: 'include'
             }),
-            keepUnusedDataFor:5
+            keepUnusedDataFor: 5
         }),
         getOrders: builder.query({
             query: () => ({
                 url: ORDERS_URL,
                 credentials: 'include'
             }),
-            keepUnusedDataFor:5
+            keepUnusedDataFor: 5
         }),
         deliverOrder: builder.mutation({
             query: (orderId) => ({
@@ -57,9 +57,9 @@ export const orderApiSlice = apiSlice.injectEndpoints({
     })
 })
 
-export const { 
+export const {
     useCreateOrderMutation,
-    useGetOrderDetailsQuery ,
+    useGetOrderDetailsQuery,
     usePayOrderMutation,
     useGetPayPalClientIdQuery,
     useGetMyOrdersQuery,

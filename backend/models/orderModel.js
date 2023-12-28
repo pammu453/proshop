@@ -29,46 +29,46 @@ const orderSchema = new mongoose.Schema({
         required: true
     },
     paymentResults: {
-        id: {type:String},
-        status: {type:String},
-        update_time: {type:String},
-        email_address: {type:String},
+        id: { type: String },
+        status: { type: String },
+        update_time: { type: String },
+        email_address: { type: String },
     },
-    itemsPrice:{
-        type:Number,
-        required:true,
-        default:0.0
+    itemsPrice: {
+        type: Number,
+        required: true,
+        default: 0.0
     },
-    taxPrice:{
-        type:Number,
-        required:true,
-        default:0.0
+    taxPrice: {
+        type: Number,
+        required: true,
+        default: 0.0
     },
-    shippingPrice:{
-        type:Number,
-        required:true,
-        default:0.0
+    shippingPrice: {
+        type: Number,
+        required: true,
+        default: 0.0
     },
-    totalPrice:{
-        type:Number,
-        required:true,
-        default:0.0
+    totalPrice: {
+        type: Number,
+        required: true,
+        default: 0.0
     },
-    isPaid:{
-        type:Boolean,
-        required:true,
-        default:false
+    isPaid: {
+        type: Boolean,
+        required: true,
+        default: false
     },
-    paidAt:{
-        type:Date,  
+    paidAt: {
+        type: Date,
     },
-    isDelivered:{
-        type:Boolean,  
-        required:true,
-        default:false
+    isDelivered: {
+        type: Boolean,
+        required: true,
+        default: false
     },
-    deliveredAt:{
-        type:Date,
+    deliveredAt: {
+        type: Date,
     }
 
 }, {

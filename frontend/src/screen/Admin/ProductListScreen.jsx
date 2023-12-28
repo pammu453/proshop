@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom'
 import Paginate from '../../components/Paginate'
 
 const ProductListScreen = () => {
-    const {pageNumber}=useParams()
+    const { pageNumber } = useParams()
     const { data, isLoading, error, refetch } = useGetProductsQuery({
         pageNumber
     })
@@ -28,10 +28,10 @@ const ProductListScreen = () => {
         }
     }
 
-    const deleteHandler = async(id) => {
-        if(window.confirm("Are you sure to delete the product?")){
+    const deleteHandler = async (id) => {
+        if (window.confirm("Are you sure to delete the product?")) {
             try {
-                const {data}=await deleteProduct(id)
+                const { data } = await deleteProduct(id)
                 toast.success(data.message)
                 refetch();
             } catch (error) {
@@ -53,7 +53,7 @@ const ProductListScreen = () => {
             </Row>
             {
                 isLoading ? <Loader /> :
-                    error ? <Error variant='danger'>{error.message || 'An unexpected error occurred.'}</Error> :            
+                    error ? <Error variant='danger'>{error.message || 'An unexpected error occurred.'}</Error> :
                         (
                             <Table striped bordered hover responsive className='table-sm' variant="dark">
                                 <thead>
@@ -103,8 +103,8 @@ const ProductListScreen = () => {
                         )
             }
             {loadingCreate && <Loader />}
-            {loadingDelete && <Loader/>}
-            <Paginate pages={data?.pages} page={data?.page} isAdmin={true}/>
+            {loadingDelete && <Loader />}
+            <Paginate pages={data?.pages} page={data?.page} isAdmin={true} />
         </>
     )
 }

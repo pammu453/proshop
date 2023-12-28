@@ -1,9 +1,7 @@
+import bcrypt from 'bcryptjs'
 import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../models/userModel.js";
-
-import bcrypt from 'bcryptjs'
 import generateToken from "../utils/generateToken.js";
-
 
 //@desc Auth user & get token
 //@route POST /api/users/login
@@ -189,7 +187,6 @@ const updateUser = asyncHandler(async (req, res) => {
         throw new Error('User not found!');
     }
 })
-
 
 export {
     authUser,

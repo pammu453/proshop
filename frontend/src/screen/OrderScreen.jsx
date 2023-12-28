@@ -15,7 +15,7 @@ const OrderScreen = () => {
     const { data: order, refetch, isLoading, error } = useGetOrderDetailsQuery(orderId)
 
     const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation()
-    const [deliverOrder,{isLoading: loadingDeliver }] = useDeliverOrderMutation()
+    const [deliverOrder, { isLoading: loadingDeliver }] = useDeliverOrderMutation()
     const [{ isPending }, payPalDispatch] = usePayPalScriptReducer()
     const { data: paypal, isLoading: loadingPayPal, error: errorPayPal } = useGetPayPalClientIdQuery()
 

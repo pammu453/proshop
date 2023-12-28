@@ -8,7 +8,7 @@ import { useProfileMutation } from '../slices/usersApiSlice'
 import { setCredentials } from '../slices/authSlice'
 import { toast } from 'react-toastify'
 import { useGetMyOrdersQuery } from "../slices/orderApiSlice"
-import {FaTimes,FaCheck} from 'react-icons/fa'
+import { FaTimes, FaCheck } from 'react-icons/fa'
 
 const ProfileScreen = () => {
     const [name, setName] = useState('');
@@ -112,26 +112,26 @@ const ProfileScreen = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {myorders.map((order)=>(
+                                    {myorders.map((order) => (
                                         <tr key={order._id}>
                                             <td>{order._id}</td>
-                                            <td>{order.createdAt.substring(1,10)}</td>
+                                            <td>{order.createdAt.substring(1, 10)}</td>
                                             <td>${order.totalPrice}</td>
                                             <td>
                                                 {
                                                     order.isPaid ? (
-                                                        <FaCheck  style={{color:"green"}}/>
-                                                    ) :(
-                                                        <FaTimes style={{color:"red"}}/>
+                                                        <FaCheck style={{ color: "green" }} />
+                                                    ) : (
+                                                        <FaTimes style={{ color: "red" }} />
                                                     )
                                                 }
                                             </td>
                                             <td>
                                                 {
                                                     order.isDelivered ? (
-                                                        <FaCheck  style={{color:"green"}}/>
-                                                    ) :(
-                                                        <FaTimes style={{color:"red"}}/>
+                                                        <FaCheck style={{ color: "green" }} />
+                                                    ) : (
+                                                        <FaTimes style={{ color: "red" }} />
                                                     )
                                                 }
                                             </td>

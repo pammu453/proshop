@@ -74,7 +74,7 @@ const UsersEditScreen = () => {
                                             type="checkbox"
                                             label='Is Admin'
                                             checked={isAdmin}
-                                            onChange={(e) =>setIsAdmin(e.target.checked)} />
+                                            onChange={(e) => setIsAdmin(e.target.checked)} />
                                     </Form.Group>
 
                                     <Button type="submit" style={{ background: "black", border: "none" }} className="mt-2" disabled={isLoading}>
