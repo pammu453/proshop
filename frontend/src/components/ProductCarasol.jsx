@@ -20,7 +20,7 @@ const ProductCarasol = () => {
                                             <Image src={product.image} alt={product.name} fluid/>
                                             <Carousel.Caption style={{position:"absolute",width:"100%",left:"0",right:"0",bottom:"0",background:"rgba(0,0,0,0.4)"}}>
                                                 <h2>
-                                                    {product.name} ${product.price}
+                                                    {product.name} (${product.price})
                                                 </h2>
                                             </Carousel.Caption>
                                         </Link>
