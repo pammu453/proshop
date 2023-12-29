@@ -12,7 +12,7 @@ import { notFound, errorHandler } from "./middleware/errorMidleware.js";
 
 //image upload
 import uploadRouter from "./routes/uploadRoutes.js";
-import path, { dirname } from 'path'
+import path from 'path'
 
 const port = process.env.PORT || 5001;
 const app = express();

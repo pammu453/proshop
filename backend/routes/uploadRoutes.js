@@ -30,13 +30,6 @@ function fileFilter(req, file, cb) {
 const upload = multer({ storage, fileFilter });
 const uploadSingleImage = upload.single('image');
 
-router.post('/', upload.single('image'), (req, res) => {
-    res.send({
-        message: "Image Uploaded",
-        image: `/${req.file.path}`
-    })
-})
-
 router.post('/', (req, res) => {
     uploadSingleImage(req, res, function (err) {
         if (err) {
