@@ -33,14 +33,25 @@ const uploadSingleImage = upload.single('image');
 router.post('/', (req, res) => {
     uploadSingleImage(req, res, function (err) {
         if (err) {
-            res.status(400).send({ message: err.message });
+            if (err instanceof multer.MulterError) {
+                // Multer error (e.g., file size exceeded)
+                return res.status(400).json({ message: err.message });
+            } else {
+                // Other unexpected errors
+                return res.status(500).json({ message: err.message });
+            }
         }
 
-        res.status(200).send({
+        // Check if req.file is defined before accessing its properties
+        if (!req.file) {
+            return res.status(400).json({ message: 'No file uploaded.' });
+        }
+
+        res.status(200).json({
             message: 'Image uploaded successfully',
             image: `/${req.file.path}`,
         });
     });
 });
 
-export default router;
+export default router
