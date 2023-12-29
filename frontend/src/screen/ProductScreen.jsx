@@ -29,7 +29,6 @@ const ProductScreen = () => {
 
     const { data: product, isLoading, refetch, error } = useGetProductByIdQuery(productId);
 
-    console.log(product)
 
     const [createReview, { isLoading: reviewLoading }] = useCreateReviewMutation()
 

@@ -6,7 +6,7 @@ import { Carousel,Image } from 'react-bootstrap'
 
 const ProductCarasol = () => {
     const { data: products, isLoadnig, error } = useGetTopProductsQuery()
-    console.log(products)
+
     return (
         <div>
             {

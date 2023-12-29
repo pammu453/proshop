@@ -71,9 +71,7 @@ const ProductEditListScreen = () => {
       const backendURL = 'http://localhost:5000';
       // Now `imagePath` should have consistent forward slashes
       setImage(`${backendURL}${imagePath}`);
-      console.log(image)
     } catch (error) {
-      console.log(error)
       toast.error(error?.data?.message || error.error)
     }
   }
