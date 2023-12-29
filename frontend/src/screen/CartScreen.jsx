@@ -12,7 +12,7 @@ const CartScreen = () => {
 
 
     const cart = useSelector(state => state.cart)
-    const { cartItems, itemPrice } = cart
+    const { cartItems } = cart
 
     const addToCartHandler = async (item, qty) => {
         dispatch(addToCart({ ...item, qty }))
@@ -83,7 +83,7 @@ const CartScreen = () => {
                     <ListGroup variant="flush">
                         <ListGroup.Item>
                             <h2>Subtotal({cartItems.reduce((acc, item) => acc + Number(item.qty), 0)}) items</h2>
-                            ${itemPrice}
+                            <p>$ {cartItems.reduce((acc, item) => acc + Number(item.price) * Number(item.qty), 0)}</p>
                         </ListGroup.Item>
                         <ListGroup.Item>
                             <Button onClick={checkOutHandler} type="button" style={{ background: "black" }} className="btn-block" disabled={cartItems.length === 0}>

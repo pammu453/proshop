@@ -26,8 +26,9 @@ const SearchBox = () => {
                 value={keyword}
                 placeholder="Search Products..."
                 className="mr-sm-2 ml-sm-5"
+                autoComplete="off"
             ></Form.Control>
-            <Button type="submit" variant="outline-success" style={{backgroundColor:"black"}} className="p-1 mx-2">Search</Button>
+            <Button type="submit" variant="dark"  className="p-1 mx-2">Search</Button>
         </Form>
     )
 }

@@ -19,9 +19,9 @@ const HomeScreen = () => {
 
     return (
         <>
-            {/* {!keyword && } */}
             {!keyword ? <ProductCarasol /> : <Link to={'/'} className='btn btn-light'>Go back</Link>}
             <h3>Latest Products</h3>
+            {keyword && data?.products.length===0 && <Error variant={"danger"}>No serch results for {keyword}</Error>}
             {isLoading ? (
                 <Loader />
             ) : error ? (

@@ -15,10 +15,10 @@ const ProductCarasol = () => {
                         <Carousel pause='hover' className='bg-promary mb-4'>
                             {
                                 products?.map((product) => (
-                                    <Carousel.Item key={product._id} style={{backgroundColor:"gray"}}>
+                                    <Carousel.Item key={product._id} style={{backgroundColor:"#f0f0f5"}}>
                                         <Link to={`/products/${product._id}`}>
                                             <Image src={product.image} alt={product.name} fluid/>
-                                            <Carousel.Caption style={{position:"absolute",width:"100%",left:"0",right:"0",bottom:"0",background:"rgba(0,0,0,0.4)"}}>
+                                            <Carousel.Caption style={{position:"absolute",width:"100%",left:"0",right:"0",bottom:"0",background:"	#666699"}}>
                                                 <h2>
                                                     {product.name} (${product.price})
                                                 </h2>
