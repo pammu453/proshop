@@ -28,8 +28,8 @@ const Header = () => {
         }
     }
     return (
-        <header>
-            <Navbar bg="dark" variant='dark' expand='md' collapseOnSelect>
+        <header style={{marginBottom:"50px"}}>
+            <Navbar bg="dark" variant='dark' expand='md' collapseOnSelect fixed='top'>
                 <Container>
                     <LinkContainer to="/" >
                         <Navbar.Brand >
@@ -42,7 +42,7 @@ const Header = () => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto">
-                            <SearchBox />
+                            
                             <LinkContainer to="/cart">
                                 <Nav.Link >
                                     <div style={{ display: "flex", alignItems: "center" }}>
@@ -90,6 +90,7 @@ const Header = () => {
                                     </NavDropdown>
                                 )
                             }
+                            <SearchBox />
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
