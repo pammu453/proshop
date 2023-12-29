@@ -53,7 +53,7 @@ const ProductListScreen = () => {
             </Row>
             {
                 isLoading ? <Loader /> :
-                    error ? <Error variant='danger'>{error.message || 'An unexpected error occurred.'}</Error> :
+                    error ? <Error variant='danger'>{error.data.message}</Error> :
                         (
                             <Table striped bordered hover responsive className='table-sm' variant="dark">
                                 <thead>

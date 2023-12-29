@@ -11,12 +11,6 @@ const errorHandler = (err, req, res, next) => {
 
     let message = err.message;
 
-    // Check for ObjectId cast error
-    if (err.name === "CastError" && err.kind === "ObjectId") {
-        message = "Resource Not Found";
-        statusCode = 404;
-    }
-
     // Additional check for unexpected errors
     if (!statusCode) {
         statusCode = 500;

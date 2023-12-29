@@ -88,7 +88,7 @@ const ProductEditListScreen = () => {
         {loadingUpdate && <Loader />}
         {
           isLoading ? <Loader /> :
-            error ? <Error variant='danger'>{error}</Error> :
+            error ? <Error variant='danger'>{error.data.message}</Error> :
               (
                 <Form onSubmit={submitteHandler}>
                   <Form.Group controlId="name" className="my-2">
