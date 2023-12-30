@@ -26,7 +26,7 @@ const OrderScreen = () => {
                     type: "resetOptions",
                     value: {
                         "clientId": paypal.clientId,
-                        currency: "INR",
+                        currency: "USD",
                     }
                 })
                 payPalDispatch({ type: "setLoadingStatus", value: "pending" })
@@ -50,11 +50,11 @@ const OrderScreen = () => {
             }
         })
     }
-    // const onApproveTest = async () => {
-    //     await payOrder({ orderId, details: { payer: {} } })
-    //     refetch()
-    //     toast.success("Payment successfull")
-    // }
+    const onApproveTest = async () => {
+        await payOrder({ orderId, details: { payer: {} } })
+        refetch()
+        toast.success("Payment successfull")
+    }
 
     const onError = (error) => {
         toast.error(error.message)
@@ -88,7 +88,7 @@ const OrderScreen = () => {
                 isLoading ? <Loader /> : error ? <Error variant='danger'>{error?.data?.message || error.error}</Error> :
                     (
                         <>
-                            <h1>Order {order._id}</h1>
+                            <span style={{marginLeft:"15px"}}>Order {order._id}</span>
                             <Row>
                                 <Col md={8}>
                                     <ListGroup variant='flush'>
@@ -188,10 +188,10 @@ const OrderScreen = () => {
                                                         {loadingPay && <Loader />}
                                                         {isPending ? <Loader /> : (
                                                             <div>
-                                                                {/* <Button onClick={onApproveTest}
+                                                                <Button onClick={onApproveTest}
                                                                     style={{ background: "grey", border: "none", marginBottom: "13px" }}
                                                                 >Test Pay Order
-                                                                </Button> */}
+                                                                </Button>
                                                                 <PayPalButtons
                                                                     createOrder={createOrder}
                                                                     onApprove={onApprove}
