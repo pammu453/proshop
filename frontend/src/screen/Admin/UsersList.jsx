@@ -15,7 +15,7 @@ const UsersList = () => {
         if (window.confirm("Are you sure to delete the user?")) {
             try {
                 await deleteUser(id)
-                toast.success("User Deleted")
+                toast.success("User deleted succefully!")
                 refetch()
             } catch (error) {
                 toast.error(error?.data?.message || error.error)
@@ -64,11 +64,11 @@ const UsersList = () => {
                                         </td>
                                         <td>
                                             <LinkContainer to={`/admin/user/${user._id}/edit`} variant="dark" className='m-1'>
-                                                <Button className='btn-sm' variant='dark'>
+                                                <Button className='btn-sm' variant='dark' hidden={user.isAdmin}>
                                                     <FaEdit />
                                                 </Button>
                                             </LinkContainer>
-                                            <Button className='btn-sm ' variant='dark' onClick={() => deleteHandler(user._id)}>
+                                            <Button className='btn-sm ' variant='dark' onClick={() => deleteHandler(user._id)} hidden={user.isAdmin}>
                                                 <FaTrash />
                                             </Button>
                                         </td>

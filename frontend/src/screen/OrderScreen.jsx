@@ -50,11 +50,11 @@ const OrderScreen = () => {
             }
         })
     }
-    const onApproveTest = async () => {
-        await payOrder({ orderId, details: { payer: {} } })
-        refetch()
-        toast.success("Payment successfull")
-    }
+    // const onApproveTest = async () => {
+    //     await payOrder({ orderId, details: { payer: {} } })
+    //     refetch()
+    //     toast.success("Payment successfull")
+    // }
 
     const onError = (error) => {
         toast.error(error.message)
@@ -90,7 +90,7 @@ const OrderScreen = () => {
                         <>
                             <span style={{marginLeft:"15px"}}>Order {order._id}</span>
                             <Row>
-                                <Col md={8}>
+                                <Col md={7}>
                                     <ListGroup variant='flush'>
                                         <ListGroup.Item>
                                             <h1>Shipping</h1>
@@ -156,7 +156,7 @@ const OrderScreen = () => {
                                         </ListGroup.Item>
                                     </ListGroup>
                                 </Col>
-                                <Col md={4}>
+                                <Col md={5}>
                                     <Card>
                                         <ListGroup variant='flush'>
                                             <ListGroup.Item>
@@ -188,10 +188,10 @@ const OrderScreen = () => {
                                                         {loadingPay && <Loader />}
                                                         {isPending ? <Loader /> : (
                                                             <div>
-                                                                <Button onClick={onApproveTest}
+                                                                {/* <Button onClick={onApproveTest}
                                                                     style={{ background: "grey", border: "none", marginBottom: "13px" }}
                                                                 >Test Pay Order
-                                                                </Button>
+                                                                </Button> */}
                                                                 <PayPalButtons
                                                                     createOrder={createOrder}
                                                                     onApprove={onApprove}
