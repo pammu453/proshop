@@ -20,7 +20,7 @@ const app = express();
 connectDB();
 
 app.use(cors({
-    origin: "https://659818c729d2ab1263ca10f4--peppy-lamington-5a1956.netlify.app",
+    origin: "https://whimsical-babka-7d3aa2.netlify.app",
     credentials: true,
 }));
 
