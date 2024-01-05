@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://proshop-kw40.onrender.com'
+export const BASE_URL =  'https://proshop-kw40.onrender.com'
 
 export const PRODUCTS_URL = '/api/products'
 export const USERS_URL = '/api/users'
