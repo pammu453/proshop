@@ -20,7 +20,8 @@ const app = express();
 connectDB();
 
 app.use(cors({
-    origin: "https://65980c3c19fbf10d6143217a--tranquil-tapioca-83220d.netlify.app",
+    origin: "https://659818c729d2ab1263ca10f4--peppy-lamington-5a1956.netlify.app",
+    credentials: true,
 }));
 
 //Body parser middleware
