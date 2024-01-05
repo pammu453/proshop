@@ -68,7 +68,7 @@ const ProductEditListScreen = () => {
       toast.success(res.message)
       // Assuming `res` is the response object you received from the backend
       const imagePath = res.image.replace(/\\/g, '/');
-      const backendURL = 'http://localhost:5000';
+      const backendURL = 'https://proshop-kw40.onrender.com';
       // Now `imagePath` should have consistent forward slashes
       setImage(`${backendURL}${imagePath}`);
     } catch (error) {

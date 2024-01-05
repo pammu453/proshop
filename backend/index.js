@@ -20,7 +20,7 @@ const app = express();
 connectDB();
 
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: "https://65980c3c19fbf10d6143217a--tranquil-tapioca-83220d.netlify.app",
     credentials: true,
 }));
 
