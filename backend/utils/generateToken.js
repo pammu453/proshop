@@ -9,7 +9,6 @@ const generateToken = (res, userId) => {
         secure: true,
         sameSite: "Strict",
         maxAge: 30 * 24 * 60 * 60 * 1000,//30 days
-        domain: "https://659818c729d2ab1263ca10f4--peppy-lamington-5a1956.netlify.app",
     })
 }
 
