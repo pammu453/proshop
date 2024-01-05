@@ -57,9 +57,9 @@ const OrderList = () => {
                                         </td>
                                         <td>
                                             {
-                                                order.isDeliverd ? (
+                                                order.isDelivered ? (
                                                     <>
-                                                        {order.isDeliverd.substring(0, 10)}
+                                                        {order.deliveredAt.substring(0, 10)}
                                                     </>
                                                 ) : (
                                                     <FaTimes style={{ color: "red" }} />
