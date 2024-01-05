@@ -21,7 +21,6 @@ connectDB();
 
 app.use(cors({
     origin: "https://65980c3c19fbf10d6143217a--tranquil-tapioca-83220d.netlify.app",
-    credentials: true,
 }));
 
 //Body parser middleware
